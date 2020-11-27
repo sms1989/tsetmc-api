@@ -18,7 +18,7 @@ export function assets(): Promise<Asset[]> {
     filters: {
       getid: href => href.split('=').pop(),
     },
-  })('http://www.tsetmc.com/Loader.aspx?ParTree=111C1417', 'table tr:not(:first-child)', [
+  })('https://www.tsetmc.com/Loader.aspx?ParTree=111C1417', 'table tr:not(:first-child)', [
     {
       id: 'td:nth-child(8) a@href | getid',
       asset_code: 'td:nth-child(1)',
@@ -48,7 +48,7 @@ export type OHLC = {
 
 export function history(asset_id: string): Promise<OHLC[]> {
   return request
-    .get(`http://members.tsetmc.com/tsev2/data/InstTradeHistory.aspx?i=${asset_id}&Top=999999&A=0`)
+    .get(`https://members.tsetmc.com/tsev2/data/InstTradeHistory.aspx?i=${asset_id}&Top=999999&A=0`)
     .timeout({ response: 180 * 1000 })
     .then(response => {
       return response.text
@@ -84,7 +84,7 @@ export type Message = {
 };
 
 export function messages(asset_id: string): Promise<Message[]> {
-  return xray()(`http://www.tsetmc.com/Loader.aspx?Partree=15131W&i=${asset_id}`, 'tr', [
+  return xray()(`https://www.tsetmc.com/Loader.aspx?Partree=15131W&i=${asset_id}`, 'tr', [
     {
       title: 'th:nth-child(1)',
       tarikh: 'th:nth-child(2)',
@@ -132,7 +132,7 @@ export function intraday(
 }> {
   date = date.replace(/-/g, '');
   return request
-    .get(`http://cdn.tsetmc.com/Loader.aspx?ParTree=15131P&i=${asset_id}&d=${date}`)
+    .get(`https://cdn.tsetmc.com/Loader.aspx?ParTree=15131P&i=${asset_id}&d=${date}`)
     .timeout({ response: 180 * 1000 })
     .then(response => {
       const text = response.text;
